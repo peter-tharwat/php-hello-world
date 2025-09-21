@@ -6,13 +6,11 @@ services:
     environment:
       REPO_URL: ${REPO_URL}
     env_file:
-      - ../.env
+      - ./.env
     volumes:
-      - ./configs/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+      - ./docker/configs/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     expose:
       - "9000"
-
-
   websitename-nginx:
     image: petertharwat/nginx-1.27-github:v1.0.9
     restart: unless-stopped
@@ -25,8 +23,8 @@ services:
       DOCKER_PHP_SERVICE_PORT: 9000
       RUN_SHELL_BEFORE_PULL: ${RUN_SHELL_BEFORE_PULL}
     env_file:
-      - ../.env
-      - ./configs/nginx/.env.site.conf
+      - ./.env
+      - ./docker/configs/nginx/.env.site.conf
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.followersstore.rule=Host(`test2.followers-store.com`)"
