@@ -9,11 +9,14 @@ services:
       - ../.env
     volumes:
       - ./configs/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+    #ports:
+    #  - "80:80"
+
   websitename-nginx:
     image: petertharwat/nginx-1.27-github:v1.0.9
     restart: unless-stopped
-    ports:
-      - "80:80"
+    #ports:
+    #  - "80:80"
     environment:
       REPO_URL: ${REPO_URL}
       DOCKER_APP_DOMAIN: tester.com
@@ -22,6 +25,13 @@ services:
     env_file:
       - ../.env
       - ./config/nginx/.env.site.conf
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.followersstore.rule=Host(`test2.followers-store.com`)"
+      - "traefik.http.routers.followersstore.entrypoints=websecure"
+      - "traefik.http.routers.followersstore.tls.certresolver=letsencrypt"
+      - "traefik.http.services.followersstore.loadbalancer.server.port=80"
+
     depends_on:
       - websitename-php-fpm
   websitename-redis:
