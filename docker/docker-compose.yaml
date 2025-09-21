@@ -9,8 +9,8 @@ services:
       - ../.env
     volumes:
       - ./configs/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
-    #ports:
-    #  - "80:80"
+    expose:
+      - "9000"
 
 
 
@@ -21,7 +21,7 @@ services:
     #  - "80:80"
     environment:
       REPO_URL: ${REPO_URL}
-      DOCKER_APP_DOMAIN: test2.followers-store.com
+      DOCKER_APP_DOMAIN: _ test2.followers-store.com
       DOCKER_PHP_SERVICE_NAME: websitename-php-fpm
       DOCKER_PHP_SERVICE_PORT: 9000
       RUN_SHELL_BEFORE_PULL: ${RUN_SHELL_BEFORE_PULL}
