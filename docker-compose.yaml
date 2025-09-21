@@ -15,7 +15,7 @@ services:
     environment:
       REPO_URL: ${REPO_URL}
       PHP_UPSTREAM: websitename-php-fpm:9000
-      RUN_SHELL_BEFORE_PULL: 'envsubst "$PHP_UPSTREAM" < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf'
+      RUN_SHELL_BEFORE_PULL: 'envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf'
     volumes:
       - ./docker/configs/nginx/.env.site.conf:/etc/nginx/conf.d/default.conf.template
     labels:
