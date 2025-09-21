@@ -23,7 +23,7 @@ services:
       - ../.env
       - ./config/nginx/.env.site.conf
     depends_on:
-      - php-fpm
+      - websitename-php-fpm
   websitename-redis:
     image: redis:6.2
     restart: unless-stopped
