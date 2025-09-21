@@ -19,7 +19,7 @@ services:
     #  - "80:80"
     environment:
       REPO_URL: ${REPO_URL}
-      DOCKER_APP_DOMAIN: tester.com
+      DOCKER_APP_DOMAIN: test2.followers-store.com
       DOCKER_PHP_SERVICE_NAME: websitename-php-fpm
       DOCKER_PHP_SERVICE_PORT: 9000
       RUN_SHELL_BEFORE_PULL: ${RUN_SHELL_BEFORE_PULL}
