@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  websitename-php-fpm:
+    image: petertharwat/php-fpm-8.4-github:v1.0.14
+    restart: unless-stopped
+    environment:
+      REPO_URL: ${REPO_URL}
+    env_file:
+      - ../.env
+    volumes:
+      - ./configs/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+  websitename-nginx:
+    image: petertharwat/nginx-1.27-github:v1.0.9
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      REPO_URL: ${REPO_URL}
+      DOCKER_APP_DOMAIN: tester.com
+      DOCKER_PHP_SERVICE_NAME: websitename-php-fpm
+      DOCKER_PHP_SERVICE_PORT: 9000
+    env_file:
+      - ../.env
+      - ./config/nginx/.env.site.conf
+    depends_on:
+      - php-fpm
+  websitename-redis:
+    image: redis:6.2
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
